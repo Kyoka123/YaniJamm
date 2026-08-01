@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: 6ba11b76a15139a47b524c89f3e3002d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - poofEffectPrefab: {fileID: 6034268274441413708, guid: e48c2a30b71f36e4b9ae3a611eea0325, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

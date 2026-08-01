@@ -11,9 +11,9 @@ public class Boy : MonoBehaviour
     [Header("Saldiri Alani")]
     public Collider2D attackCollider;
     public LayerMask enemyLayers;
-    public int attackDamage = 20;
+    public int attackDamage = 30;
 
-    public float attackRate = 1f;
+    public float attackRate = 1.5f;
     private float nextAttackTime;
 
     private bool isJab = true;
@@ -25,15 +25,18 @@ public class Boy : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool isJumping;
-    private bool haveEraser = false;
-    private Animator animator;
+    public bool isStunned;
+    public bool haveEraser = true;
+    public Animator animator;
     private SpriteRenderer spriteRenderer;
 
     public float moveSpeed = 2f;
-    public float jumpForce = 4f;
+    public float jumpForce = 8f;
     public Transform groundCheck;
     public float groundCheckRadius = 0.05f;
     public LayerMask groundLayer;
+
+    private float currentInput;
 
     void Start()
     {
@@ -45,13 +48,19 @@ public class Boy : MonoBehaviour
 
     void Update()
     {
-        if (Time.time >= nextAttackTime && Keyboard.current != null && Keyboard.current.xKey.wasPressedThisFrame && !isAttacking)
+        currentInput = (Keyboard.current.rightArrowKey.isPressed ? 1 : 0) - (Keyboard.current.leftArrowKey.isPressed ? 1 : 0);
+
+        if (Time.time >= nextAttackTime && Keyboard.current != null && Keyboard.current.xKey.wasPressedThisFrame && !isAttacking && !isStunned && haveEraser)
         {
+            if (!isGrounded)
+            {
+                isJab = false;
+            }
             StartCoroutine(PerformAttack());
             nextAttackTime = Time.time + (1f / attackRate);
         }
 
-        if (Keyboard.current.upArrowKey.wasPressedThisFrame && isGrounded)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame && isGrounded && !isStunned)
         {
             isJumping = true;
         }
@@ -60,6 +69,13 @@ public class Boy : MonoBehaviour
         {
             haveEraser = !haveEraser;
         }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            isStunned = !isStunned;
+        }
+
+        Animation(currentInput);
     }
 
     void FixedUpdate()
@@ -70,16 +86,19 @@ public class Boy : MonoBehaviour
 
     private void Move()
     {
-        if (isAttacking) return;
+        if ((isAttacking && isGrounded) || isStunned)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
 
-        float input = (Keyboard.current.rightArrowKey.isPressed ? 1 : 0) - (Keyboard.current.leftArrowKey.isPressed ? 1 : 0);
-        rb.linearVelocity = new Vector2(input * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(currentInput * moveSpeed, rb.linearVelocity.y);
 
-        if (input > 0)
+        if (currentInput > 0)
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
-        else if (input < 0)
+        else if (currentInput < 0)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
@@ -89,12 +108,19 @@ public class Boy : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isJumping = false;
         }
-
-        Animation(input);
     }
 
     private void Animation(float input)
     {
+        if (isStunned)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Stun"))
+            {
+                animator.Play("Stun", 0, 0f);
+            }
+            return;
+        }
+
         if (isAttacking) return;
 
         if (!haveEraser)
@@ -125,18 +151,6 @@ public class Boy : MonoBehaviour
     {
         isAttacking = true;
 
-        storedVelocity = new Vector2(rb.linearVelocity.x, 0f);
-
-        if (isGrounded)
-        {
-            rb.gravityScale = 0;
-            rb.linearVelocity = Vector2.zero;
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        }
-
         if (isJab)
         {
             animator.Play("EraserJab");
@@ -148,15 +162,8 @@ public class Boy : MonoBehaviour
         {
             animator.Play("EraserSlash");
             yield return new WaitForSeconds(0.36f);
-            ApplyDamage(attackDamage + 5);
+            ApplyDamage(attackDamage);
             yield return new WaitForSeconds(0.3f);
-        }
-
-        rb.gravityScale = originalGravityScale;
-
-        if (isGrounded)
-        {
-            rb.linearVelocity = storedVelocity;
         }
 
         isJab = !isJab;
