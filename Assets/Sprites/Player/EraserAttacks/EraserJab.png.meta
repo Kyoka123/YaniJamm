@@ -1,0 +1,364 @@
+fileFormatVersion: 2
+guid: f5a66d3059465cf46a0e18659684b51e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5643396742758145190
+    second: EraserJab 1_0
+  - first:
+      213: -3577204555857343496
+    second: EraserJab 1_1
+  - first:
+      213: 8219852621085230870
+    second: EraserJab 1_2
+  - first:
+      213: -8726760522291704884
+    second: EraserJab 1_3
+  - first:
+      213: -5684672110263093522
+    second: EraserJab 1_4
+  - first:
+      213: -1975450037989839574
+    second: EraserJab 1_5
+  - first:
+      213: -2918883818735577011
+    second: EraserJab 1_6
+  - first:
+      213: -3168535702705545371
+    second: EraserJab 1_7
+  - first:
+      213: -628457183680901454
+    second: EraserJab 1_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: EraserJab 1_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 6
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ac12b2007f515e40800000000000000
+      internalID: 5643396742758145190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 6
+        width: 14
+        height: 26
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbc637c8673b5ec0800000000000000
+      internalID: -3577204555857343496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 6
+        width: 16
+        height: 26
+      alignment: 9
+      pivot: {x: 0.375, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61749d18868c21270800000000000000
+      internalID: 8219852621085230870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_3
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 6
+        width: 23
+        height: 26
+      alignment: 9
+      pivot: {x: 0.26086956, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb86e49a8154e680800000000000000
+      internalID: -8726760522291704884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_4
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 6
+        width: 35
+        height: 26
+      alignment: 9
+      pivot: {x: 0.17142858, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee6b23b95dcfb11b0800000000000000
+      internalID: -5684672110263093522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_5
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 6
+        width: 48
+        height: 26
+      alignment: 9
+      pivot: {x: 0.125, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2d651628aac594e0800000000000000
+      internalID: -1975450037989839574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_6
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 6
+        width: 34
+        height: 26
+      alignment: 9
+      pivot: {x: 0.1764706, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4851abb1aa0e77d0800000000000000
+      internalID: -2918883818735577011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_7
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 6
+        width: 29
+        height: 26
+      alignment: 9
+      pivot: {x: 0.20689656, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56fd716e0991704d0800000000000000
+      internalID: -3168535702705545371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EraserJab 1_8
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 6
+        width: 29
+        height: 26
+      alignment: 9
+      pivot: {x: 0.20689656, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2be482a65854747f0800000000000000
+      internalID: -628457183680901454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c693a6bdede4d864fab51b939d6bd43e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      EraserJab 1_0: 5643396742758145190
+      EraserJab 1_1: -3577204555857343496
+      EraserJab 1_2: 8219852621085230870
+      EraserJab 1_3: -8726760522291704884
+      EraserJab 1_4: -5684672110263093522
+      EraserJab 1_5: -1975450037989839574
+      EraserJab 1_6: -2918883818735577011
+      EraserJab 1_7: -3168535702705545371
+      EraserJab 1_8: -628457183680901454
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
