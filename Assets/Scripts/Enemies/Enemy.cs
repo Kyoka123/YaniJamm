@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        Spawner = Object.FindFirstObjectByType<EnemySpawn>();
         enemyMovement = GetComponent<IEnemyMovement>();
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Die()
     {
+        Spawner.OnEnemyKilled();
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null) sr.enabled = false;
 
