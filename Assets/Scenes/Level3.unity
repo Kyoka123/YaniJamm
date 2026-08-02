@@ -239,6 +239,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8502552523427437227, guid: edf575034db56f444bcb46898e50a3e7, type: 3}
   m_PrefabInstance: {fileID: 191255017}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &86815242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86815228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc94efc121b24742b3feead6ab840d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  sounds: []
 --- !u!1 &118393214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5106346950622144120, guid: f4678ac840604e040997fd543e9ae002, type: 3}
@@ -352,6 +365,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2564828635818156206, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
   m_PrefabInstance: {fileID: 1485497601}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &166511932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166511924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc94efc121b24742b3feead6ab840d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  sounds: []
 --- !u!1001 &191255017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -446,6 +472,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5241307750413070088, guid: edf575034db56f444bcb46898e50a3e7, type: 3}
       insertIndex: 5
       addedObject: {fileID: 86815235}
+    - targetCorrespondingSourceObject: {fileID: 5241307750413070088, guid: edf575034db56f444bcb46898e50a3e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 86815242}
   m_SourcePrefab: {fileID: 100100000, guid: edf575034db56f444bcb46898e50a3e7, type: 3}
 --- !u!1 &262896005
 GameObject:
@@ -2607,7 +2636,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2564828635818156206, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 124036505}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3787471801374584419, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 166511932}
   m_SourcePrefab: {fileID: 100100000, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
 --- !u!1 &1518913237
 GameObject:
@@ -3192,6 +3224,48 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3768835, y: 13.1963825}
   m_EdgeRadius: 0
+--- !u!1 &2131796637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3974119905889769131, guid: 2ae1bcf67ef627d4f8f1ce3509bdd096, type: 3}
+  m_PrefabInstance: {fileID: 3085153686507607652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2131796643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131796637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc94efc121b24742b3feead6ab840d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  sounds:
+  - name: EraserJab
+    clip: {fileID: 8300000, guid: d1374bd7f4c656449ae3ee5e06ff1322, type: 3}
+    volume: 0.498
+    pitch: 1
+  - name: EraserSlash
+    clip: {fileID: 8300000, guid: 54c68061cfe083a4e9b3300b702ef741, type: 3}
+    volume: 0.283
+    pitch: 1
+  - name: Jump
+    clip: {fileID: 8300000, guid: ed6f24ca802413d4ca2271e060a19d56, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Walk
+    clip: {fileID: 8300000, guid: b7fc2a95ceccad345aa84de407a35b61, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Death
+    clip: {fileID: 8300000, guid: d336caf7cd811ac408df6c06945f4257, type: 3}
+    volume: 1
+    pitch: 1
+  - name: Arkaplan
+    clip: {fileID: 8300000, guid: 19db9d5f0a85afa4695061fc4355d0cf, type: 3}
+    volume: 0.032
+    pitch: 1
 --- !u!1001 &3085153686507607652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3275,7 +3349,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 789853093875912440, guid: 2ae1bcf67ef627d4f8f1ce3509bdd096, type: 3}
       insertIndex: -1
       addedObject: {fileID: 611048040}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3974119905889769131, guid: 2ae1bcf67ef627d4f8f1ce3509bdd096, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2131796643}
   m_SourcePrefab: {fileID: 100100000, guid: 2ae1bcf67ef627d4f8f1ce3509bdd096, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
