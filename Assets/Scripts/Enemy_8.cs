@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_8 : MonoBehaviour
+public class Enemy_8 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -82,6 +82,12 @@ public class Enemy_8 : MonoBehaviour
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     private IEnumerator PerformMeleeAttack()

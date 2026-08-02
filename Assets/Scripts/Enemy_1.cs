@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class Enemy_1 : MonoBehaviour
+public class Enemy_1 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -80,6 +80,12 @@ public class Enemy_1 : MonoBehaviour
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     private IEnumerator Shoot()

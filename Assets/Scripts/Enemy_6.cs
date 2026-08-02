@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_6 : MonoBehaviour
+public class Enemy_6 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -68,6 +68,12 @@ public class Enemy_6 : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     private void FacePlayer()

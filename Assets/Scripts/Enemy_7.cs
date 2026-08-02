@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class Enemy_7 : MonoBehaviour
+public class Enemy_7 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -56,6 +56,12 @@ public class Enemy_7 : MonoBehaviour
             StartCoroutine(JumpTowardsPlayer());
             nextJumpTime = Time.time + jumpInterval;
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     void FixedUpdate()

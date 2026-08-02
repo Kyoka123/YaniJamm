@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_5 : MonoBehaviour
+public class Enemy_5 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -44,6 +44,12 @@ public class Enemy_5 : MonoBehaviour
         }
     }
 
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
+    }
+
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
@@ -64,9 +70,10 @@ public class Enemy_5 : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
-
-        animator.Play("Jump");
+        if (enemyScript == null || !enemyScript.isKnockedBack)
+        {
+            rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
+        }
 
         yield return new WaitForSeconds(0.6f);
         isJumping = false;
@@ -76,7 +83,7 @@ public class Enemy_5 : MonoBehaviour
     {
         if (enemyScript != null)
         {
-            enemyScript.TakeDamage(enemyScript.currentHealth);
+            enemyScript.TakeDamage(enemyScript.currentHealth, Vector2.zero);
         }
     }
 

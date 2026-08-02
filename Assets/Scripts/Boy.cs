@@ -13,14 +13,15 @@ public class Boy : MonoBehaviour
     public LayerMask enemyLayers;
     public int attackDamage = 30;
 
+    [Header("Geri Püskürtme (Knockback)")]
+    public float knockbackForceX = 3f;
+    public float knockbackForceY = 2f;
+
     public float attackRate = 1.5f;
     private float nextAttackTime;
 
     private bool isJab = true;
     private bool isAttacking = false;
-
-    private Vector2 storedVelocity;
-    private float originalGravityScale;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -43,7 +44,6 @@ public class Boy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        originalGravityScale = rb.gravityScale;
     }
 
     void Update()
@@ -182,12 +182,16 @@ public class Boy : MonoBehaviour
         List<Collider2D> hitEnemies = new List<Collider2D>();
         attackCollider.Overlap(filter, hitEnemies);
 
+        float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
+
+        Vector2 knockbackVector = new Vector2(facingDirection * knockbackForceX, knockbackForceY);
+
         foreach (Collider2D enemyCollider in hitEnemies)
         {
             Enemy enemy = enemyCollider.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, knockbackVector);
             }
         }
     }

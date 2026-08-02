@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class Enemy_4 : MonoBehaviour
+public class Enemy_4 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
@@ -34,6 +34,11 @@ public class Enemy_4 : MonoBehaviour
     {
         if (player == null) return;
 
+        if (enemyScript != null && enemyScript.isKnockedBack)
+        {
+            return;
+        }
+
         if (isGrounded && !isJumping)
         {
             animator.Play("Idle");
@@ -50,10 +55,21 @@ public class Enemy_4 : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        if (enemyScript != null && enemyScript.isKnockedBack)
+        {
+            return;
+        }
+
         if (isGrounded && !isJumping)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     private IEnumerator JumpTowardsPlayer()
@@ -66,9 +82,10 @@ public class Enemy_4 : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
-
-        animator.Play("Jump");
+        if (enemyScript == null || !enemyScript.isKnockedBack)
+        {
+            rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
+        }
 
         yield return new WaitForSeconds(0.6f);
         isJumping = false;
@@ -78,7 +95,7 @@ public class Enemy_4 : MonoBehaviour
     {
         if (enemyScript != null)
         {
-            enemyScript.TakeDamage(enemyScript.currentHealth);
+            enemyScript.TakeDamage(enemyScript.currentHealth, Vector2.zero);
         }
     }
 
@@ -98,12 +115,10 @@ public class Enemy_4 : MonoBehaviour
 
     private IEnumerator StunPlayerRoutine(Boy playerScript, float duration)
     {
-        childSpriteRenderer.enabled = true;
+        if (childSpriteRenderer != null) childSpriteRenderer.enabled = true;
         playerScript.haveEraser = false;
         yield return new WaitForSeconds(duration);
-        childSpriteRenderer.enabled = false;
+        if (childSpriteRenderer != null) childSpriteRenderer.enabled = false;
         playerScript.haveEraser = true;
     }
-
-
 }
