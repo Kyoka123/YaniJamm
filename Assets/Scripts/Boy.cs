@@ -8,6 +8,10 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class Boy : MonoBehaviour
 {
+    [Header("Can Sistemi")]
+    public float MaxHealth = 100;
+    private float currentHealth;
+
     [Header("Saldiri Alani")]
     public Collider2D attackCollider;
     public LayerMask enemyLayers;
@@ -41,6 +45,7 @@ public class Boy : MonoBehaviour
 
     void Start()
     {
+        currentHealth = MaxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -194,5 +199,25 @@ public class Boy : MonoBehaviour
                 enemy.TakeDamage(damage, knockbackVector);
             }
         }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Debug.Log("Player Caný: " + currentHealth);
+
+        // Can 0 veya daha az olduysa oyuncuyu yok et / öleyim tetikle
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Oyuncu Öldü!");
+        // Oyun bitti ekraný veya nesneyi yok etme iþlemleri:
+        // Destroy(gameObject);
     }
 }

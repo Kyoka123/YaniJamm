@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    EnemySpawn Spawner;
     private Rigidbody2D rb;
     public GameObject poofEffectPrefab;
     public int maxHealth = 90;
@@ -79,6 +80,10 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.6f);
 
+        if (Spawner != null)
+        {
+            Spawner.OnEnemyKilled();
+        }
         Destroy(gameObject);
     }
 }

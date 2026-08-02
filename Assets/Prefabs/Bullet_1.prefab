@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7681067826212442645}
   - component: {fileID: 4305411441962311648}
   - component: {fileID: 231781396390183956}
+  - component: {fileID: -8637788407298102994}
   m_Layer: 6
   m_Name: Bullet_1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,4 +180,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba11b76a15139a47b524c89f3e3002d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  poofEffectPrefab: {fileID: 0}
   maxHealth: 20
+  currentHealth: 0
+  isKnockedBack: 0
+  knockbackDuration: 0.25
+--- !u!114 &-8637788407298102994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974284250280891707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207d5cccff00a3b478004e65bb1df475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletDestroyer

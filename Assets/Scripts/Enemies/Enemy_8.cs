@@ -1,21 +1,24 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
-public class Enemy_7 : MonoBehaviour, IEnemyMovement
+public class Enemy_8 : MonoBehaviour, IEnemyMovement
 {
+    Boy PlayerHealth;
     public Transform player;
     public float jumpForceY = 2f;
     public float moveSpeedX = 1.5f;
     public float jumpInterval = 1.5f;
 
-    [Header("Ates Sistemi")]
-    public GameObject bulletPrefab;
-    public float bulletSpeed = 6f;
-    public float fireRate = 2f;
-    private float nextFireTime;
+    [Header("Saldiri Ayarlari")]
+    public Collider2D attackCollider;
+    public LayerMask targetLayers;
+    public float attackCooldown = 1f;
+
+    private float nextAttackTime;
     private bool isAttacking;
 
+    [Header("Zemin Ayarlari")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.05f;
     public LayerMask groundLayer;
@@ -28,6 +31,7 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        PlayerHealth = Object.FindFirstObjectByType<Boy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -45,23 +49,17 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= 4f && isGrounded && !isJumping && Time.time >= nextFireTime && !isAttacking)
+        if (distanceToPlayer <= 0.8f && isGrounded && !isJumping && Time.time >= nextAttackTime && !isAttacking)
         {
-            StartCoroutine(Shoot());
-            nextFireTime = Time.time + fireRate;
+            StartCoroutine(PerformMeleeAttack());
+            nextAttackTime = Time.time + attackCooldown;
         }
 
-        if (distanceToPlayer > 4f && isGrounded && Time.time >= nextJumpTime && !isAttacking)
+        if (distanceToPlayer > 0.8f && isGrounded && Time.time >= nextJumpTime && !isAttacking)
         {
             StartCoroutine(JumpTowardsPlayer());
             nextJumpTime = Time.time + jumpInterval;
         }
-    }
-
-    public void OnKnockbackStart()
-    {
-        StopAllCoroutines();
-        isJumping = false;
     }
 
     void FixedUpdate()
@@ -88,35 +86,42 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
         }
     }
 
-    private IEnumerator Shoot()
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
+    }
+
+    private IEnumerator PerformMeleeAttack()
     {
         isAttacking = true;
         animator.Play("Attack");
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.6f);
 
-        float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
-        Vector3 spawnOffset = new Vector3(0.33f * facingDirection, 0.24f, 0f);
-        Vector3 spawnPosition = transform.position + spawnOffset;
+        ApplyMeleeDamage();
 
-        if (bulletPrefab != null)
-        {
-            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-
-            if (facingDirection < 0)
-            {
-                bullet.transform.localScale = new Vector3(-Mathf.Abs(bullet.transform.localScale.x), bullet.transform.localScale.y, bullet.transform.localScale.z);
-            }
-
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            if (bulletRb != null)
-            {
-                bulletRb.linearVelocity = new Vector2(facingDirection * bulletSpeed, 0f);
-            }
-        }
-
-        yield return new WaitForSeconds(0.65f);
+        yield return new WaitForSeconds(0.4f);
         isAttacking = false;
+    }
+
+    private void ApplyMeleeDamage()
+    {
+        if (attackCollider == null) return;
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(targetLayers);
+        filter.useLayerMask = true;
+        filter.useTriggers = true;
+
+        List<Collider2D> hitTargets = new List<Collider2D>();
+        attackCollider.Overlap(filter, hitTargets);
+
+        foreach (Collider2D hit in hitTargets)
+        {
+            // Custom collider icinde kalan hedeflere uygulanacak hasar kodunu buraya yazacaksin
+            PlayerHealth.TakeDamage(25);
+        }
     }
 
     private IEnumerator JumpTowardsPlayer()
@@ -127,16 +132,13 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
 
         animator.Play("Jump");
 
+        yield return new WaitForSeconds(0.25f);
+
         rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
-
-        while (!isGrounded)
-        {
-
-        }
 
         animator.Play("Jump");
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.6f);
         isJumping = false;
     }
 }

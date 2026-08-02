@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_6 : MonoBehaviour, IEnemyMovement
 {
+    Boy PlayerHealth;
     public Transform player;
     public float jumpForceY = 2f;
     public float moveSpeedX = 1.5f;
@@ -30,6 +31,7 @@ public class Enemy_6 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        PlayerHealth = Object.FindFirstObjectByType<Boy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -118,7 +120,7 @@ public class Enemy_6 : MonoBehaviour, IEnemyMovement
         foreach (Collider2D hit in hitTargets)
         {
             // Custom collider icinde kalan hedeflere uygulanacak hasar kodunu buraya yazacaksin
-
+            PlayerHealth.TakeDamage(25);
         }
     }
 

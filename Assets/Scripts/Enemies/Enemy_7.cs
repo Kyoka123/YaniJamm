@@ -1,23 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
-public class Enemy_8 : MonoBehaviour, IEnemyMovement
+public class Enemy_7 : MonoBehaviour, IEnemyMovement
 {
     public Transform player;
     public float jumpForceY = 2f;
     public float moveSpeedX = 1.5f;
     public float jumpInterval = 1.5f;
 
-    [Header("Saldiri Ayarlari")]
-    public Collider2D attackCollider;
-    public LayerMask targetLayers;
-    public float attackCooldown = 1f;
-
-    private float nextAttackTime;
+    [Header("Ates Sistemi")]
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 6f;
+    public float fireRate = 2f;
+    private float nextFireTime;
     private bool isAttacking;
 
-    [Header("Zemin Ayarlari")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.05f;
     public LayerMask groundLayer;
@@ -47,17 +45,23 @@ public class Enemy_8 : MonoBehaviour, IEnemyMovement
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= 0.8f && isGrounded && !isJumping && Time.time >= nextAttackTime && !isAttacking)
+        if (distanceToPlayer <= 4f && isGrounded && !isJumping && Time.time >= nextFireTime && !isAttacking)
         {
-            StartCoroutine(PerformMeleeAttack());
-            nextAttackTime = Time.time + attackCooldown;
+            StartCoroutine(Shoot());
+            nextFireTime = Time.time + fireRate;
         }
 
-        if (distanceToPlayer > 0.8f && isGrounded && Time.time >= nextJumpTime && !isAttacking)
+        if (distanceToPlayer > 4f && isGrounded && Time.time >= nextJumpTime && !isAttacking)
         {
             StartCoroutine(JumpTowardsPlayer());
             nextJumpTime = Time.time + jumpInterval;
         }
+    }
+
+    public void OnKnockbackStart()
+    {
+        StopAllCoroutines();
+        isJumping = false;
     }
 
     void FixedUpdate()
@@ -84,42 +88,36 @@ public class Enemy_8 : MonoBehaviour, IEnemyMovement
         }
     }
 
-    public void OnKnockbackStart()
-    {
-        StopAllCoroutines();
-        isJumping = false;
-    }
-
-    private IEnumerator PerformMeleeAttack()
+    private IEnumerator Shoot()
     {
         isAttacking = true;
         animator.Play("Attack");
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.1f);
 
-        ApplyMeleeDamage();
+        float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
+        Vector3 spawnOffset = new Vector3(0.33f * facingDirection, 0.24f, 0f);
+        Vector3 spawnPosition = transform.position + spawnOffset;
 
-        yield return new WaitForSeconds(0.4f);
-        isAttacking = false;
-    }
-
-    private void ApplyMeleeDamage()
-    {
-        if (attackCollider == null) return;
-
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(targetLayers);
-        filter.useLayerMask = true;
-        filter.useTriggers = true;
-
-        List<Collider2D> hitTargets = new List<Collider2D>();
-        attackCollider.Overlap(filter, hitTargets);
-
-        foreach (Collider2D hit in hitTargets)
+        if (bulletPrefab != null)
         {
-            // Custom collider icinde kalan hedeflere uygulanacak hasar kodunu buraya yazacaksin
+            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
 
+            if (facingDirection < 0)
+            {
+                bullet.transform.localScale = new Vector3(-Mathf.Abs(bullet.transform.localScale.x), bullet.transform.localScale.y, bullet.transform.localScale.z);
+            }
+
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            if (bulletRb != null)
+            {
+                bulletRb.linearVelocity = new Vector2(facingDirection * bulletSpeed, 0f);
+            }
         }
+
+        yield return new WaitForSeconds(0.65f);
+        isAttacking = false;
+        
     }
 
     private IEnumerator JumpTowardsPlayer()
@@ -130,13 +128,16 @@ public class Enemy_8 : MonoBehaviour, IEnemyMovement
 
         animator.Play("Jump");
 
-        yield return new WaitForSeconds(0.25f);
-
         rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
+
+        while (!isGrounded)
+        {
+
+        }
 
         animator.Play("Jump");
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.2f);
         isJumping = false;
     }
 }

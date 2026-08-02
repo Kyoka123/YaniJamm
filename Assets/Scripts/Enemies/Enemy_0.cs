@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class Enemy_0 : MonoBehaviour
 {
+    Enemy Health;
     public Transform player;
     public float rollSpeed = 5f;
+    public int HpUp = -15;
 
     private Rigidbody2D rb;
     private Animator animator;
 
     void Start()
     {
+        Health = Object.FindFirstObjectByType<Enemy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -52,6 +55,10 @@ public class Enemy_0 : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Boy playerHealth = collision.GetComponent<Boy>();
+            if (playerHealth != null) {
+                playerHealth.TakeDamage(HpUp);
+            }
             OnPlayerHit(collision.gameObject);
             Destroy(gameObject);
         }
@@ -69,6 +76,7 @@ public class Enemy_0 : MonoBehaviour
     private void OnPlayerHit(GameObject playerObject)
     {
         // Player'a degdiginde calisacak kodunu buraya yazacaksin
-
+        Health.currentHealth = 0;
+       
     }
 }
