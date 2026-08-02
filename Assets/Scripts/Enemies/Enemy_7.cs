@@ -60,8 +60,6 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
 
     public void OnKnockbackStart()
     {
-        StopAllCoroutines();
-        isJumping = false;
     }
 
     void FixedUpdate()

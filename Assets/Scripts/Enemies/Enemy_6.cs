@@ -120,7 +120,7 @@ public class Enemy_6 : MonoBehaviour, IEnemyMovement
         foreach (Collider2D hit in hitTargets)
         {
             // Custom collider icinde kalan hedeflere uygulanacak hasar kodunu buraya yazacaksin
-            PlayerHealth.TakeDamage(25);
+            PlayerHealth.TakeDamage(10);
         }
     }
 

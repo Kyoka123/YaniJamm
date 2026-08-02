@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class Enemy_0 : MonoBehaviour
+public class Enemy_0 : MonoBehaviour, IEnemyMovement
 {
-    Enemy Health;
     public Transform player;
     public float rollSpeed = 5f;
-    public int HpUp = -15;
+    private int HpUp = -20;
 
     private Rigidbody2D rb;
     private Animator animator;
+    private Enemy enemyScript;
 
     void Start()
     {
-        Health = Object.FindFirstObjectByType<Enemy>();
+        enemyScript = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -26,6 +26,8 @@ public class Enemy_0 : MonoBehaviour
     {
         if (player == null) return;
 
+        if (enemyScript != null && enemyScript.isKnockedBack) return;
+
         FacePlayer();
     }
 
@@ -33,8 +35,14 @@ public class Enemy_0 : MonoBehaviour
     {
         if (player == null) return;
 
+        if (enemyScript != null && enemyScript.isKnockedBack) return;
+
         float direction = player.position.x > transform.position.x ? 1f : -1f;
         rb.linearVelocity = new Vector2(direction * rollSpeed, rb.linearVelocity.y);
+    }
+
+    public void OnKnockbackStart()
+    {
     }
 
     private void FacePlayer()
@@ -51,32 +59,29 @@ public class Enemy_0 : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            Boy playerHealth = collision.GetComponent<Boy>();
-            if (playerHealth != null) {
-                playerHealth.TakeDamage(HpUp);
-            }
-            OnPlayerHit(collision.gameObject);
-            Destroy(gameObject);
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            OnPlayerHit(collision.gameObject);
-            Destroy(gameObject);
+            Boy playerHealth = collision.gameObject.GetComponent<Boy>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(HpUp);
+            }
+
+            OnPlayerHit();
         }
     }
 
-    private void OnPlayerHit(GameObject playerObject)
+    private void OnPlayerHit()
     {
-        // Player'a degdiginde calisacak kodunu buraya yazacaksin
-        Health.currentHealth = 0;
-       
+        if (enemyScript != null)
+        {
+            enemyScript.TakeDamage(enemyScript.currentHealth, Vector2.zero);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -22,6 +22,7 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
 
     private Rigidbody2D rb;
     private Animator animator;
+    private Enemy enemyScript;
     private bool isGrounded;
     private float nextJumpTime;
     private bool isJumping;
@@ -30,11 +31,14 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        enemyScript = GetComponent<Enemy>();
     }
 
     void Update()
     {
         if (player == null) return;
+
+        if (enemyScript != null && enemyScript.isKnockedBack) return;
 
         FacePlayer();
 
@@ -45,13 +49,13 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= 4 && isGrounded && !isJumping && Time.time >= nextFireTime && !isAttacking)
+        if (distanceToPlayer <= 4f && isGrounded && !isJumping && Time.time >= nextFireTime && !isAttacking)
         {
             StartCoroutine(Shoot());
             nextFireTime = Time.time + fireRate;
         }
 
-        if (distanceToPlayer > 4 && isGrounded && Time.time >= nextJumpTime && !isAttacking)
+        if (distanceToPlayer > 4f && isGrounded && Time.time >= nextJumpTime && !isAttacking)
         {
             StartCoroutine(JumpTowardsPlayer());
             nextJumpTime = Time.time + jumpInterval;
@@ -62,10 +66,16 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        if (enemyScript != null && enemyScript.isKnockedBack) return;
+
         if (isGrounded && !isJumping)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
+    }
+
+    public void OnKnockbackStart()
+    {
     }
 
     private void FacePlayer()
@@ -82,18 +92,12 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
         }
     }
 
-    public void OnKnockbackStart()
-    {
-        StopAllCoroutines();
-        isJumping = false;
-    }
-
     private IEnumerator Shoot()
     {
         isAttacking = true;
         animator.Play("Attack");
 
-        yield return new WaitForSeconds(0.36f);
+        yield return new WaitForSeconds(0.1f);
 
         float facingDirection = transform.localScale.x > 0 ? 1f : -1f;
         Vector3 spawnOffset = new Vector3(0.33f * facingDirection, 0.24f, 0f);
@@ -113,12 +117,9 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
             {
                 bulletRb.linearVelocity = new Vector2(facingDirection * bulletSpeed, 0f);
             }
-
-            yield return new WaitForSeconds(4f);
-            Destroy(bullet);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.65f);
         isAttacking = false;
     }
 
@@ -130,16 +131,14 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
 
         animator.Play("Jump");
 
-        rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
+        yield return new WaitForSeconds(0.15f);
 
-        while (!isGrounded)
+        if (enemyScript == null || !enemyScript.isKnockedBack)
         {
-            
+            rb.linearVelocity = new Vector2(direction * moveSpeedX, jumpForceY);
         }
 
-        animator.Play("Jump");
-
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.6f);
         isJumping = false;
     }
 }

@@ -70,8 +70,6 @@ public class Enemy_3 : MonoBehaviour, IEnemyMovement
 
     public void OnKnockbackStart()
     {
-        StopAllCoroutines();
-        isJumping = false;
     }
 
     private void FacePlayer()
@@ -139,4 +137,6 @@ public class Enemy_3 : MonoBehaviour, IEnemyMovement
         yield return new WaitForSeconds(0.2f);
         isJumping = false;
     }
+
+
 }

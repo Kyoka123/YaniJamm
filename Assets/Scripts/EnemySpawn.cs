@@ -65,12 +65,12 @@ public class EnemySpawn : MonoBehaviour
         GameObject selectedEnemy = enemyPrefabs[randomEnemyIndex];
 
         // 2. Rastgele doðma yönü seç (0: Sol, 1: Sað)
-        Transform selectedPoint = (Random.Range(0, 2) == 0) ? leftSpawnPoint : rightSpawnPoint;
+        Vector2 spawnPosition = new Vector2(Random.Range(leftSpawnPoint.position.x, rightSpawnPoint.position.x), leftSpawnPoint.position.y);
 
         // 3. Düþmaný oluþtur
-        if (selectedEnemy != null && selectedPoint != null)
+        if (selectedEnemy != null)
         {
-            GameObject spawnedEnemy = Instantiate(selectedEnemy, selectedPoint.position, selectedPoint.rotation);
+            GameObject spawnedEnemy = Instantiate(selectedEnemy, spawnPosition, Quaternion.identity);
             spawnedEnemy.SetActive(true);
             activeEnemyCount++;
             

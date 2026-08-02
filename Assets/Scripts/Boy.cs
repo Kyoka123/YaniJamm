@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class Boy : MonoBehaviour
 {
     [Header("Can Sistemi")]
     public float MaxHealth = 100;
     private float currentHealth;
+    public Image healthImage;
 
     [Header("Saldiri Alani")]
     public Collider2D attackCollider;
@@ -45,6 +47,8 @@ public class Boy : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(PlaySound());
+
         currentHealth = MaxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -81,6 +85,8 @@ public class Boy : MonoBehaviour
         }
 
         Animation(currentInput);
+
+        healthImage.fillAmount = currentHealth / 100f;
     }
 
     void FixedUpdate()
@@ -159,6 +165,7 @@ public class Boy : MonoBehaviour
         if (isJab)
         {
             animator.Play("EraserJab");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlaySound("EraserJab");
             yield return new WaitForSeconds(0.3f);
             ApplyDamage(attackDamage);
             yield return new WaitForSeconds(0.36f);
@@ -166,6 +173,7 @@ public class Boy : MonoBehaviour
         else
         {
             animator.Play("EraserSlash");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlaySound("EraserSlash");
             yield return new WaitForSeconds(0.36f);
             ApplyDamage(attackDamage);
             yield return new WaitForSeconds(0.3f);
@@ -217,7 +225,19 @@ public class Boy : MonoBehaviour
     void Die()
     {
         Debug.Log("Oyuncu Öldü!");
-        // Oyun bitti ekraný veya nesneyi yok etme iþlemleri:
-        // Destroy(gameObject);
+    }
+
+    IEnumerator PlaySound()
+    {
+        while (true)
+        {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound("Arkaplan");
+            }
+            yield return new WaitForSeconds(30f);
+        }
+
     }
 }
+
