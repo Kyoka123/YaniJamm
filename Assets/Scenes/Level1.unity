@@ -2298,9 +2298,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::camerabound
   target: {fileID: 1277943289}
   smoothSpeed: 0.125
-  minX: -7.5
-  maxX: 3.3
-  minY: -3
+  minX: -6
+  maxX: -2.67
+  minY: -2.6
   maxY: 0.8
 --- !u!1 &1008008795
 GameObject:
