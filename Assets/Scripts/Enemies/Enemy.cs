@@ -62,7 +62,6 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Die()
     {
-        Spawner.OnEnemyKilled();
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null) sr.enabled = false;
 

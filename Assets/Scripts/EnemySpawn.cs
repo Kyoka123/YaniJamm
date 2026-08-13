@@ -55,6 +55,7 @@ public class EnemySpawn : MonoBehaviour
             SpawnRandomEnemy();
             timer = 0f;
             spawnedSoFar++;
+            activeEnemyCount++;
         }
     }
 
@@ -70,10 +71,11 @@ public class EnemySpawn : MonoBehaviour
         // 3. Düþmaný oluþtur
         if (selectedEnemy != null)
         {
+            
             GameObject spawnedEnemy = Instantiate(selectedEnemy, spawnPosition, Quaternion.identity);
             spawnedEnemy.SetActive(true);
-            activeEnemyCount++;
-            
+            Debug.Log("Active Enemy Count: " + activeEnemyCount);
+
         }
     }
 
