@@ -4,7 +4,7 @@ using UnityEngine.Windows;
 
 public class Enemy_1 : MonoBehaviour, IEnemyMovement
 {
-    public Transform player;
+    private Transform player;
     public float jumpForceY = 2f;
     public float moveSpeedX = 1.5f;
     public float jumpInterval = 1.5f;
@@ -29,6 +29,7 @@ public class Enemy_1 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         enemyScript = GetComponent<Enemy>();

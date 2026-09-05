@@ -12,6 +12,11 @@ public class Enemy : MonoBehaviour
     public float knockbackDuration = 0.25f;
     private IEnemyMovement enemyMovement;
 
+    void Awake()
+    {
+        currentHealth = maxHealth;
+    }
+
     void Start()
     {
         Spawner = Object.FindFirstObjectByType<EnemySpawn>();
@@ -26,7 +31,7 @@ public class Enemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            StartCoroutine(Die());
+            Die();
             return;
         }
 
@@ -60,7 +65,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private IEnumerator Die()
+    private void Die()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null) sr.enabled = false;
@@ -78,8 +83,6 @@ public class Enemy : MonoBehaviour
             }
             Destroy(poofEffect, 1f);
         }
-
-        yield return new WaitForSeconds(0.6f);
 
         if (Spawner != null)
         {

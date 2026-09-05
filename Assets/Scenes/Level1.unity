@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   poofEffectPrefab: {fileID: 6034268274441413708, guid: e48c2a30b71f36e4b9ae3a611eea0325, type: 3}
   maxHealth: 10000
-  currentHealth: 0
+  currentHealth: 10000
   isKnockedBack: 0
   knockbackDuration: 0.25
 --- !u!4 &86815241 stripped
@@ -2296,10 +2296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78de6c180a2ad614aab6709702f2c572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::camerabound
-  target: {fileID: 1277943289}
   smoothSpeed: 0.125
-  minX: -6
-  maxX: -2.67
+  minX: -6.58
+  maxX: 2.57
   minY: -2.6
   maxY: 0.8
 --- !u!1 &1008008795
@@ -3028,6 +3027,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 697036801698754427, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
+      propertyPath: currentHealth
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2564828635818156206, guid: 9df7dd7fb622b0148a739210af15835b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.550001

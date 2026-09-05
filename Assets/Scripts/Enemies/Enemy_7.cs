@@ -28,6 +28,7 @@ public class Enemy_7 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }

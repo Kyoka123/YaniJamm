@@ -86,7 +86,10 @@ public class Boy : MonoBehaviour
 
         Animation(currentInput);
 
-        healthImage.fillAmount = currentHealth / 100f;
+        if (healthImage != null)
+        {
+            healthImage.fillAmount = currentHealth / MaxHealth;
+        }
     }
 
     void FixedUpdate()

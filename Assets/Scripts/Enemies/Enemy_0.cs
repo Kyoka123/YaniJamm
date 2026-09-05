@@ -12,6 +12,7 @@ public class Enemy_0 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         enemyScript = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

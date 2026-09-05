@@ -31,6 +31,7 @@ public class Enemy_8 : MonoBehaviour, IEnemyMovement
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         PlayerHealth = Object.FindFirstObjectByType<Boy>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

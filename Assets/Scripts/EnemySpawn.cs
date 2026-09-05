@@ -52,10 +52,10 @@ public class EnemySpawn : MonoBehaviour
 
         if (timer >= currentSpawnInterval)
         {
-            SpawnRandomEnemy();
             timer = 0f;
             spawnedSoFar++;
             activeEnemyCount++;
+            SpawnRandomEnemy();
         }
     }
 

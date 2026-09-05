@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class camerabound : MonoBehaviour
 {
-    public Transform target; // Takip edilecek oyuncu
     public float smoothSpeed = 0.125f; // Kameranýn yumuþak takip hýzý
+    Transform target;
 
     [Header("Kamera Sýnýrlarý")]
     public float minX; // Haritanýn en sol sýnýrý
     public float maxX; // Haritanýn en sað sýnýrý
     public float minY; // Haritanýn en alt sýnýrý
     public float maxY; // Haritanýn en üst sýnýrý
+
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     private void LateUpdate()
     {
